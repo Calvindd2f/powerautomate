@@ -20,5 +20,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Execute PowerShell Script
-        run: .\script.ps1 -Identity ${{ github.event.inputs.Identity }} -Type ${{ github.event.inputs.Type }} -AccessToken ${{ github.event.inputs.AccessToken }}
+      - name: PowerShell script
+        uses: Amadevus/pwsh-script@v2.0.3
+        with:
+          script: |
+          
+          
+        
+            
+
