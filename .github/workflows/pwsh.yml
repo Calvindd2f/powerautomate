@@ -1,0 +1,21 @@
+name: Triggered PowerShell Action
+
+on:
+  workflow_dispatch:
+    inputs:
+      parameter1:
+        description: 'A custom parameter'
+        required: true
+      parameter2:
+        description: 'Another parameter'
+        required: false
+
+jobs:
+  run-script:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Execute PowerShell Script
+        run: .\script.ps1 -Param1 ${{ github.event.inputs.parameter1 }} -Param2 ${{ github.event.inputs.parameter2 }}
