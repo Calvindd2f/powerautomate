@@ -4,7 +4,10 @@ param(
 )
 
 # Import the Exchange Online Management Module
-Import-Module ExchangeOnlineManagement
+if (!(Import-Module ExchangeOnlineManagement){
+    Install-Module ExchangeOnlineManagement -Scope CurrentUser
+    Import-Module ExchangeOnlineManagement
+}
 
 # Connect to Exchange Online; This might require authentication details depending on your setup
 # Normally, you would use Connect-ExchangeOnline here, but for automation, ensure you handle authentication appropriately
