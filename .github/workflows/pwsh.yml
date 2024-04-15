@@ -3,13 +3,13 @@ name: Triggered PowerShell Action
 on:
   workflow_dispatch:
     inputs:
-      Identity:
+      domain:
         description: 'Identity Variables passed from power automate'
         required: true
-      Type:
+      email:
         description: 'Type Variable passed from power automate'
         required: true
-      AccessToken:
+      exotoken:
         description: 'AccessToken Variables passed from power automate'
         required: true
 
@@ -24,6 +24,19 @@ jobs:
         uses: Amadevus/pwsh-script@v2.0.3
         with:
           script: |
+            $email = "${{ github.event.inputs.Email }}"
+            $domain = "${{ github.event.inputs.domain }}"
+            $exo_token = "${{ github.event.inputs.exotoken }}"
+
+            if(!(gmo ExchangeOnlineManagement)){
+              Inmo -Name ExchangeOnlineManagement -Scope CurrentUser -Force
+              Ipmo -Name ExchangeOnlineManagement -Scope CurrentUser
+            }
+            
+            Connect-ExchangeOnline -AccessToken $exo_token -Organization $domain
+
+            Set-Mailbox -Identity $email -Type Shared
+            
           
           
         
